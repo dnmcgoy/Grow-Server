@@ -1,56 +1,55 @@
 
-var socket = io.connect();
-socket.on('plantSuccessful', function (data) {
-    $('#intro').append(data);
-});
 
-$(function() {
-    $( "input[type=submit], a, button" )
-	.button()
-	.click(function( event ) {
-            socket.emit('plant');
-	});
-    
-    
+$(document).ready(function(){
+
     //Counter
     counter = 0;
     //Make element draggable
-    $(".tree").draggable({
+    $(".drag").draggable({
         helper:'clone',
-        containment: 'gamezone',
-	
+        containment: 'frame',
+
         //When first dragged
         stop:function(ev, ui) {
             var pos=$(ui.helper).offset();
             objName = "#clonediv"+counter
             $(objName).css({"left":pos.left,"top":pos.top});
-            $(objName).removeClass("tree");
-	    
-	    
-            //When an existiung object is dragged
+            $(objName).removeClass("drag");
+
+
+            //When an existing object is dragged
             $(objName).draggable({
-		containment: 'parent',
-		stop:function(ev, ui) {
-		    var pos=$(ui.helper).offset();
-		}
+                containment: 'parent',
+                stop:function(ev, ui) {
+                    var pos=$(ui.helper).offset();
+		    
+                    //console.log($(this).attr("id"));
+		    //console.log(pos.left)
+                    //console.log(pos.top)
+                }
             });
-	}
+        }
     });
     //Make element droppable
-    $("#gamezone").droppable({
+    $("#frame").droppable({
 	drop: function(ev, ui) {
-	    counter++;
-	    var element=$(ui.draggable).clone();
-	    element.addClass("tempclass");
-	    $(this).append(element);
-	    $(".tempclass").attr("id","clonediv"+counter);
-	    $("#clonediv"+counter).removeClass("tempclass");
-	    
-	    //Get the dynamically item id
-	    draggedNumber = ui.helper.attr('id').search(/tree([0-9])/)
-	    itemDragged = "dragged" + RegExp.$1
-	    
-	    $("#clonediv"+counter).addClass(itemDragged);
+	    var pos = $(ui.draggable).offset();
+	    socket.emit('plant', {x : pos.left, y:  pos.top });
+	    if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
+		counter++;
+		var element=$(ui.draggable).clone();
+		element.addClass("tempclass");
+		$(this).append(element);
+		$(".tempclass").attr("id","clonediv"+counter);
+		$("#clonediv"+counter).removeClass("tempclass");
+
+		//Get the dynamically item id
+		draggedNumber = ui.helper.attr('id').search(/drag([0-9])/)
+		itemDragged = "dragged" + RegExp.$1
+		//console.log(itemDragged)
+
+		$("#clonediv"+counter).addClass(itemDragged);
+	    }
         }
     });
 });

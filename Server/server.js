@@ -33,9 +33,14 @@ io.sockets.on('connection', function(socket)
   /*
     When user wants to plant
   */
-  socket.on('plant', function(x,y)
+  socket.on('plant', function(data)
   {
-    if(x < 10 && y < 10) game.grid[x][y] = new Tree((new Date).getTime());
+    var x = data.x;
+    var y = data.y;
+    //if(x < 10 && y < 10) game.grid[x][y] = new Tree((new Date).getTime());
+
+    console.log("My x value: " + x);
+    console.log("My y value: " + y);
     //Should return an error is x or y is >= 10
     socket.emit('plantSuccessful', "My plant");
   });

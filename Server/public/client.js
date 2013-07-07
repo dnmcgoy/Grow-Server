@@ -33,9 +33,10 @@ $(document).ready(function(){
     //Make element droppable
     $("#frame").droppable({
 	drop: function(ev, ui) {
-	    var pos = $(ui.draggable).offset();
-	    socket.emit('plant', {x : pos.left, y:  pos.top });
 	    if (ui.helper.attr('id').search(/drag[0-9]/) != -1){
+		var pos = $(ui.draggable).offset();
+		socket.emit('plant', {x : pos.left, y:  pos.top });
+	    
 		counter++;
 		var element=$(ui.draggable).clone();
 		element.addClass("tempclass");

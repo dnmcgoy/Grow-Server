@@ -43,6 +43,7 @@ io.sockets.on('connection', function(socket)
     console.log("My y value: " + y);
     //Should return an error is x or y is >= 10
     socket.emit('plantSuccessful', "My plant");
+    socket.broadcast.emit('treeCreated', {"x": x, "y" : y}); 
   });
 
 

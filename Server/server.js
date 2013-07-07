@@ -8,7 +8,7 @@ var express = require('express')
 
 var port = process.env.PORT || 9000;
 
-server.listen(80);
+server.listen(port);
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');

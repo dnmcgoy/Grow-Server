@@ -59,7 +59,7 @@ $(document).ready(function(){
 	counter++;
 	var element=$("#drag1").clone();
 	element.addClass("tempclass");
-	$(this).append(element);
+	$("#frame").append(element);
 	$(".tempclass").attr("id","clonediv"+counter);
 	$("#clonediv"+counter).removeClass("tempclass")
 	$("#clonediv"+counter).addClass("dragged1");

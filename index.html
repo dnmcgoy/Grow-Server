@@ -1,0 +1,10 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+  socket.on('news', function (data) {
+    $('#intro').append(data);
+  });
+</script>
+
+<div id="intro">Hello World</div>

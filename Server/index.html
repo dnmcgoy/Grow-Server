@@ -1,0 +1,47 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<style>
+  #tree { width: 50px; height: 50px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
+  #gamezone { width: 1000px; height: 1000px; padding: 0.5em; float: left; margin: 10px; }
+</style>
+
+<script>
+  var socket = io.connect();
+  socket.on('plantSuccessful', function (data) {
+    $('#intro').append(data);
+  });
+
+  $(function() {
+    $( "input[type=submit], a, button" )
+      .button()
+      .click(function( event ) {
+        socket.emit('plant');
+      });
+  });
+
+  $(function() {
+    $( "#tree" ).draggable();
+    $( "#gamezone" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Dropped!" );
+      }
+    });
+  });
+</script>
+
+<div id="intro">Hello World</div>
+
+<button>A button element</button>
+
+<div id="tree" class="ui-widget-content">
+  <p>Drag me to my target</p>
+</div>
+ 
+<div id="gamezone" class="ui-widget-header">
+  <p>Drop here</p>
+</div>

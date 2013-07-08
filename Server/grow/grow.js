@@ -7,7 +7,7 @@ module.exports = function Grow()
     grid[i] = new Array();
     for(var j = 0; j < 10; ++j)
     {
-      grid[i][j] = false;
+      grid[i][j] = null;
     }
   }
 }

@@ -64,7 +64,7 @@ $(document).ready(function(){
 	$("#clonediv"+counter).removeClass("tempclass")
 	$("#clonediv"+counter).addClass("dragged1");
 
-	objName = "#clonediv"+counter
+	objName = "#clonediv"+counter;
         $(objName).css({"left":data.x,"top":data.y});
         $(objName).removeClass("drag");
     });

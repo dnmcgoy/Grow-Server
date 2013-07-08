@@ -1,6 +1,7 @@
-module.exports = function Tree(date, x, y)
+module.exports = function Tree(date, x, y, z)
 {
-  this.birthDate = date;
+  this.birthdate = date;
   this.x         = x;
   this.y         = y;
+  this.z         = z; 
 }
